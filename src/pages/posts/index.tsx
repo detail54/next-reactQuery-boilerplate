@@ -3,21 +3,25 @@ import API_URL from 'hooks/api/urls'
 import usePost from 'hooks/usePost'
 import { usePrefetchQuery } from 'hooks/useReactQuery'
 import { NextPage } from 'next'
-import React, { useId } from 'react'
+import Link from 'next/link'
 
-const post: NextPage = () => {
+const posts: NextPage = () => {
   const { getPosts } = usePost()
   const { data: postsData } = getPosts()
 
   return (
     <>
       {postsData?.map((post) => (
-        <div key={post.id}>{post.title}</div>
+        <div>
+          <Link key={post.id} href={`${API_URL.POSTS}/${post.id}`}>
+            {post.title}
+          </Link>
+        </div>
       ))}
     </>
   )
 }
 
-export default post
+export default posts
 
-usePrefetchQuery<IPost>(API_URL.POSTS)
+usePrefetchQuery<IPost[]>(API_URL.POSTS)

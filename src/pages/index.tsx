@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         <meta name='description' content='next react query boilerplate' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Link href='post'>post</Link>
+      <Link href='posts'>post</Link>
     </div>
   )
 }
