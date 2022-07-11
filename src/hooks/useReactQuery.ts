@@ -11,7 +11,7 @@ import {
 import api from '../utils/axios'
 import useApiError, { TErrorHandlers } from './useApiError'
 
-type TQueryKey = [string, object | undefined]
+export type TQueryKey = [string, object | undefined]
 export type TQueryErr = (err: AxiosError) => void
 export type TMutationErr = (
   error: AxiosError,
