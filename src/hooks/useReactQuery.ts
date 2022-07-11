@@ -7,9 +7,13 @@ import {
   UseMutationOptions,
   UseMutationResult,
   useQueryClient,
+  QueryFunction,
+  dehydrate,
+  QueryFunctionContext,
 } from 'react-query'
 import api from '../utils/axios'
 import useApiError, { TErrorHandlers } from './useApiError'
+import queryClient from 'utils/reactQuery'
 
 export type TQueryKey = [string, object | undefined]
 export type TQueryErr = (err: AxiosError) => void
@@ -18,6 +22,29 @@ export type TMutationErr = (
   variables: unknown,
   context: unknown,
 ) => void | Promise<unknown>
+
+export const fetcher = async <T>({
+  queryKey,
+  pageParam,
+}: Omit<QueryFunctionContext<TQueryKey>, 'meta'>): Promise<T> => {
+  const [url, params] = queryKey
+  const { data } = await api.get<T>(url, { params: { ...params, pageParam } })
+
+  return data
+}
+
+export const usePrefetchQuery = async <T>(url: string, params?: object) => {
+  await queryClient.prefetchQuery<T, AxiosError, T, TQueryKey>(
+    [url, params],
+    ({ queryKey }) => fetcher({ queryKey }),
+  )
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
+}
 
 export const useQuery = <T>(
   url: string,
