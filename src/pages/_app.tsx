@@ -1,16 +1,42 @@
-import '../../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Hydrate, QueryClientProvider } from 'react-query'
 import queryClient from 'utils/reactQuery'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { ThemeProvider } from 'styled-components'
+import GlobalStyle from 'styles/GlobalStyle'
+import { useState } from 'react'
+import RightTheme from 'styles/ThemeRight'
+import DarkTheme from 'styles/ThemeDark'
+import Header from 'layout/Header'
+import Footer from 'layout/Footer'
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
+
+  const changeThemeButtonText = isDarkMode ? 'right mode' : 'dark mode'
+
+  const onChangeTheme = () => {
+    setIsDarkMode(!isDarkMode)
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </Hydrate>
+      <ThemeProvider theme={isDarkMode ? DarkTheme : RightTheme}>
+        <GlobalStyle />
+        <Hydrate state={pageProps.dehydratedState}>
+          <Header
+            changeThemeButtonText={changeThemeButtonText}
+            onChangeTheme={onChangeTheme}
+          />
+          <Component {...pageProps} />
+          <Footer />
+          <ReactQueryDevtools
+            initialIsOpen={false}
+            position='bottom-right'
+            panelProps={{ className: 'devtools' }}
+          />
+        </Hydrate>
+      </ThemeProvider>
     </QueryClientProvider>
   )
 }
