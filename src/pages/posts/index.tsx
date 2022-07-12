@@ -12,11 +12,9 @@ const posts: NextPage = () => {
   return (
     <>
       {postsData?.map((post) => (
-        <div>
-          <Link key={post.id} href={`${API_URL.POSTS}/${post.id}`}>
-            {post.title}
-          </Link>
-        </div>
+        <Link key={post.id} href={`${API_URL.POSTS}/${post.id}`}>
+          {post.title}
+        </Link>
       ))}
     </>
   )
