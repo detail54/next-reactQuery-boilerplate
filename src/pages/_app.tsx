@@ -9,8 +9,9 @@ import RightTheme from 'styles/ThemeRight'
 import DarkTheme from 'styles/ThemeDark'
 import Header from 'layout/Header'
 import Footer from 'layout/Footer'
+import Main from 'layout/Main'
 
-const App = ({ Component, pageProps }: AppProps): JSX.Element => {
+const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
 
   const changeThemeButtonText = isDarkMode ? 'right mode' : 'dark mode'
@@ -28,7 +29,7 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
             changeThemeButtonText={changeThemeButtonText}
             onChangeTheme={onChangeTheme}
           />
-          <Component {...pageProps} />
+          <Main Component={Component} pageProps={pageProps} router={router} />
           <Footer />
           <ReactQueryDevtools
             initialIsOpen={false}

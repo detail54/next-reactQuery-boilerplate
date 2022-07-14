@@ -35,8 +35,9 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang='ko'>
         <Head>
+          <meta name='description' content='next react query boilerplate' />
           <meta charSet='utf-8' />
         </Head>
         <body>
