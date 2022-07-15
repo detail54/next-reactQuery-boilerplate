@@ -41,7 +41,7 @@ export const usePrefetchQuery = async <T>(url: string, params?: object) => {
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   }
 }

@@ -22,7 +22,7 @@ export default post
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const id = ctx.query.id
 
-  usePrefetchQuery<IPost>(API_URL.POSTS, { id })
+  await usePrefetchQuery<IPost>(API_URL.POSTS, { id })
   return {
     props: { id },
   }

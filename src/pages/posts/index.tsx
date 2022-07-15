@@ -2,11 +2,12 @@ import { IPost } from 'hooks/api/interface'
 import API_URL from 'hooks/api/urls'
 import usePost from 'hooks/usePost'
 import { usePrefetchQuery } from 'hooks/useReactQuery'
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
 import PostsMain from './index.styles'
 import Board from 'components/templates/board/Board'
 import { IListItemProps } from 'components/molecules/listItem/ListItem'
+import { dehydrate } from 'react-query'
 
 const posts: NextPage = () => {
   const { getPosts } = usePost()
@@ -34,6 +35,8 @@ const posts: NextPage = () => {
   )
 }
 
-export default posts
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  return await usePrefetchQuery<IPost[]>(API_URL.POSTS)
+}
 
-usePrefetchQuery<IPost[]>(API_URL.POSTS)
+export default posts
