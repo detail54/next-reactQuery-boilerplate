@@ -35,8 +35,8 @@ const posts: NextPage = () => {
   )
 }
 
+export default posts
+
 export const getStaticProps: GetStaticProps = async (ctx) => {
   return await usePrefetchQuery<IPost[]>(API_URL.POSTS)
 }
-
-export default posts

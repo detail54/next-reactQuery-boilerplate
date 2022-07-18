@@ -1,6 +1,6 @@
+import Link from 'next/link'
 import React from 'react'
 // lib
-import { useNavigate } from 'react-router-dom'
 // interface
 import { TColor, TFontColor, TSize } from 'styled-components'
 // styles
@@ -29,22 +29,19 @@ const LinkButton: React.FC<IProps> = ({
   text,
   link,
 }) => {
-  const navigate = useNavigate()
-  const onLink = () => {
-    navigate(link)
-  }
   const ButtonEl = Buttons[type]
   return (
-    <ButtonEl
-      size={size}
-      fontColor={fontColor}
-      bgColor={bgColor}
-      marginY={marginY}
-      marginX={marginX}
-      onClick={onLink}
-    >
-      {text}
-    </ButtonEl>
+    <Link href={link}>
+      <ButtonEl
+        size={size}
+        fontColor={fontColor}
+        bgColor={bgColor}
+        marginY={marginY}
+        marginX={marginX}
+      >
+        {text}
+      </ButtonEl>
+    </Link>
   )
 }
 
