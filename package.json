@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "env-cmd -f .env.local next dev",
-    "build": "env-cmd -f .env.production next build",
+    "build": "env-cmd -f .env.local next build",
+    "build:dev": "env-cmd -f .env.dev next build",
+    "build:production": "env-cmd -f .env.production next build",
     "start": "env-cmd -f .env.local next start",
-    "lint": "next lint",
     "start:dev": "env-cmd -f .env.development next start",
-    "start:production": "env-cmd -f .env.production next start"
+    "start:production": "env-cmd -f .env.production next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@types/react-query": "^1.2.9",
